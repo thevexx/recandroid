@@ -53,7 +53,7 @@ public class ListeElementActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private CustomListAdapter adapter;
     private String id_c;
-    Bundle b = getIntent().getExtras();
+//    Bundle b = getIntent().getExtras();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,12 +130,12 @@ public class ListeElementActivity extends AppCompatActivity {
                     try {
                         JSONArray arr = new JSONArray(response);
                         for(int i=0 ;i<arr.length();i++) {
-                            reclamation rec = new reclamation();
-                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
-                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
-                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
+//                            reclamation rec = new reclamation();
+//                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
+//                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
+//                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
 
-                            recList.add(rec);
+//                            recList.add(rec);
                         }
 
 

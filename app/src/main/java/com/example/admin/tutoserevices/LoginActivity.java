@@ -58,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
         btnForgotPass = (Button) findViewById(R.id.btnForgotPassword);
 
+        inputEmail.setText("nour@gmail.com");
+        inputPassword.setText("nour");
+
         // Progress dialog
 //        pDialog = new ProgressDialog(this);
 //        pDialog.setCancelable(false);
@@ -115,6 +118,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    void toast(){
+        Toast.makeText(getApplicationContext(), "Email is not valid!", Toast.LENGTH_LONG).show();
+    }
 
     /**
      * function to verify login details in mysql db
@@ -176,6 +183,8 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
 //                                finish();
+                        }else{
+                            toast();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -3,17 +3,20 @@ package com.example.admin.tutoserevices;
 import android.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,12 +26,25 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class AjouterReclamation   extends Activity implements AdapterView.OnItemSelectedListener {
@@ -45,6 +61,7 @@ Button button1v ,button22,button3 ,button2A;
 
     //Bitmap to get image from gallery
     private Bitmap bitmap;
+    private String id_c;
 
     //Uri to store the image uri
     private Uri filePath;
@@ -56,17 +73,17 @@ Button button1v ,button22,button3 ,button2A;
         Spinner spinner = (Spinner) findViewById(R.id.spinner1);
         Spinner spinnerS= (Spinner) findViewById(R.id.spinner2);
         button1v = (Button) findViewById(R.id.button1);
-       button22  =(Button) findViewById(R.id.button22);
+        button22  =(Button) findViewById(R.id.button22);
         button2A =(Button) findViewById(R.id.button2A);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        id_c = preferences.getString("idc", "");
 
         button1v.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
-                                           Intent intent = new Intent(AjouterReclamation.this, MainActivity.class);
-                                           startActivity(intent);
-                                           //Toast.makeText(getApplicationContext(), "Ajout avec succes", Toast.LENGTH_SHORT).show();
-
+                                           // affichage des champs dans le Log
+                                          //ajoutReclamations();
                                        }
                                    });
         Toast.makeText(getApplicationContext(), "Ajout avec succes", Toast.LENGTH_SHORT).show();
@@ -267,4 +284,58 @@ Button button1v ,button22,button3 ,button2A;
             uploadMultipart();
         }
     }
+
+    private void ajoutReclamations() {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(AjouterReclamation.this);
+            String URL = "http://10.0.2.2/reclam/reclamation.php?id="+id_c;
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray arr = new JSONArray(response);
+                        for(int i=0 ;i<arr.length();i++) {
+//                            reclamation rec = new reclamation();
+//                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
+//                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
+//                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
+
+//                            recList.add(rec);
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.i("MY_LOG", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+
+//                    params.put("username", username);
+//                    params.put("password", pass);
+                    return params;
+                }
+            };
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            Log.v("MY_LOG", "ok31");
+
+            e.printStackTrace();
+            Log.v("MY_LOG", "ok3");
+
+        } finally {
+
+        }
+    }
+
 }

@@ -84,9 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                session.setLogin(false);
-                Intent intenst = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intenst);
+//                session.setLogin(false);
+                finish();
             }
         });
 
