@@ -84,6 +84,7 @@ Button button1v ,button22,button3 ,button2A;
                                        public void onClick(View v) {
                                            // affichage des champs dans le Log
                                           //ajoutReclamations();
+                                           // another comment
                                        }
                                    });
         Toast.makeText(getApplicationContext(), "Ajout avec succes", Toast.LENGTH_SHORT).show();
