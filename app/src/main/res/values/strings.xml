@@ -1,0 +1,35 @@
+<resources>
+    <string name="tutoservices">Guide Reclamation</string>
+    <string name="valider">valider</string>
+    <string name="Annuller">Annuler</string>
+    <string name="login">Login</string>
+    <string name="Annuler">Annuler</string>
+    <string name="Select">Select</string>
+    <string name="Upload">Upload</string>
+
+
+    <string name="Femme">Femme</string>
+    <string name="Homme">Homme</string>
+    <string name="Genre">Genre </string>
+    <string name="tel">Telephone </string>
+    <string name="Email">Email</string>
+    <string name="prénom">prénom </string>
+    <string name="Nom">Nom</string>
+    <string name="Welcome">Welcome</string>
+    <string name="logout">logout</string>
+    <string name="change_password">change_password</string>
+    <string name="entrer">entrer</string>
+    <string name="texte">texte</string>
+
+
+    <string name="Login">Login</string>
+    <string name="btn_link_signup">btn_link_signup</string>
+
+    <string name="Inscription">Inscription </string>
+    <string name="msgalert" />
+    <string name="ajouterec">ajouter Reclamation </string>
+    <string name="Fermer">Fermer </string>
+    <string name="listerec"> liste Reclamation  </string>
+    <string name="app_name">app_name</string>
+
+</resources>

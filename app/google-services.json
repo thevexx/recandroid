@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "961041955789",
+    "firebase_url": "https://tutoserevices.firebaseio.com",
+    "project_id": "tutoserevices",
+    "storage_bucket": "tutoserevices.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961041955789:android:690db2ab96a763a8",
+        "android_client_info": {
+          "package_name": "com.example.admin.tutoserevices"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961041955789-9pfq5vlu4m38dll8qnie3mc6mvka426q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.tutoserevices",
+            "certificate_hash": "016568a6eb17c88dda1b6516f45e89fa9990b76e"
+          }
+        },
+        {
+          "client_id": "961041955789-106amqjcg389frbt1b4iu520bk2eef72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFopDHNOyGuK_ts3-fWHSoMXaPyecvCkg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961041955789-106amqjcg389frbt1b4iu520bk2eef72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

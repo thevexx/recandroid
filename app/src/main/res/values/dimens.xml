@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_vertical_margin" />
+    <dimen name="activity_horizontal_margin" />
+    <dimen name="lieu" />
+    <dimen name="etat" />
+    <dimen name="libelLe" />
+    <dimen name="date_r" />
+    <dimen name="theme" />
+    <dimen name="genre" />
+    <dimen name="year" />
+
+</resources>

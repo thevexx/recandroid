@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    style="@style/AppTheme.NoActionBar"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="130dp"
+        app:srcCompat="@mipmap/home"
+        android:layout_weight="0.51" />
+
+    <Button
+        android:id="@+id/inscritreb"
+        android:layout_width="267dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="50dp"
+        android:text="@string/listerec" />
+
+    <Button
+        android:id="@+id/intentsb"
+        android:layout_width="267dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/ajouterec" />
+
+    <Button
+        android:id="@+id/connecterb"
+        android:layout_width="267dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Notification" />
+
+
+
+    <Button
+        android:id="@+id/Fermerb"
+        android:layout_width="267dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/Fermer" />
+    
+</LinearLayout>
