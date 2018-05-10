@@ -56,12 +56,16 @@ Button button1v ,button22,button3 ,button2A;
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
 
+    private EditText EdTitre,EdComm;
     //storage permission code
     private static final int STORAGE_PERMISSION_CODE = 123;
 
     //Bitmap to get image from gallery
     private Bitmap bitmap;
     private String id_c;
+
+    private String Theme;
+    private String Lieux;
 
     //Uri to store the image uri
     private Uri filePath;
@@ -76,6 +80,9 @@ Button button1v ,button22,button3 ,button2A;
         button22  =(Button) findViewById(R.id.button22);
         button2A =(Button) findViewById(R.id.button2A);
 
+        EdTitre = (EditText)findViewById(R.id.txttitre);
+        EdComm = (EditText)findViewById(R.id.edcomm);
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         id_c = preferences.getString("idc", "");
 
@@ -83,7 +90,7 @@ Button button1v ,button22,button3 ,button2A;
                                        @Override
                                        public void onClick(View v) {
                                            // affichage des champs dans le Log
-                                          //ajoutReclamations();
+                                          ajoutReclamations();
                                            // another comment
                                        }
                                    });
@@ -114,8 +121,29 @@ Button button1v ,button22,button3 ,button2A;
         //Toast.makeText(getApplicationContext(), "upload avec succes", Toast.LENGTH_SHORT).show();
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
-        spinnerS.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.v("TAG", adapterView.getItemAtPosition(i).toString());
+                Theme = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        spinnerS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Lieux = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         // Spinner Drop down elements
         List<String> Theme = new ArrayList<String>();
@@ -322,9 +350,14 @@ Button button1v ,button22,button3 ,button2A;
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
 
-//                    params.put("username", username);
-//                    params.put("password", pass);
-                    return params;
+                    params.put("id", id_c);
+                    params.put("libelle_r", EdTitre.getText().toString());
+                    params.put("theme_r", Theme);
+                    params.put("longitude_r", "0");
+                    params.put("latitude_r", "0");
+                    params.put("lieu_r", Lieux);
+                    params.put("commentaire_r", EdComm.getText().toString());
+                     return params;
                 }
             };
             requestQueue.add(stringRequest);
