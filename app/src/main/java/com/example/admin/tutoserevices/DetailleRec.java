@@ -17,22 +17,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailleRec extends AppCompatActivity  {
+public class DetailleRec extends AppCompatActivity {
 
-private  Button fermer ;
+    private Button fermer;
 //String id;
+
+    private TextView tvTitre, tvTheme, tvEtat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detaille_rec);
 //        this.getIntent().getStringExtra("id");
+        tvEtat = (TextView)findViewById(R.id.TvEtat);
+        tvTitre = (TextView) findViewById(R.id.TvTitre);
+        tvTheme = (TextView) findViewById(R.id.TvTheme);
 
         Bundle extras = getIntent().getExtras();
         String id;
@@ -46,20 +52,22 @@ private  Button fermer ;
             theme = extras.getString("theme");
             etat = extras.getString("etat");
             // and get whatever type user account id is
-            Log.v("LOG","_________________________"+id + "__"+ libelle + "__" + theme + "__"+ etat);
+            Log.v("LOG", "_________________________" + id + "__" + libelle + "__" + theme + "__" + etat);
+            tvEtat.setText(etat);
+            tvTitre.setText(libelle);
+            tvTheme.setText(theme);
         }
 
 
-        fermer = (Button)findViewById(R.id.button4);
-    fermer.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        finish();
+        fermer = (Button) findViewById(R.id.button4);
+        fermer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
 
+            }
+        });
     }
-});
-    }
 
 
-
-    }
+}
