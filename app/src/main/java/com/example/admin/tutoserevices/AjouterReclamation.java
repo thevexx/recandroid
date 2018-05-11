@@ -89,12 +89,14 @@ Button button1v ,button22,button3 ,button2A;
         button1v.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
+                                           Intent intent = new Intent(AjouterReclamation.this, MainActivity.class);
+                                           startActivity(intent);
                                            // affichage des champs dans le Log
                                           ajoutReclamations();
                                            // another comment
                                        }
                                    });
-        Toast.makeText(getApplicationContext(), "Ajout avec succes", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "Ajout avec succes", Toast.LENGTH_SHORT).show();
 
         button22.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -105,7 +107,7 @@ Button button1v ,button22,button3 ,button2A;
 
             }
         });
-         Toast.makeText(getApplicationContext(), "select avec succes", Toast.LENGTH_SHORT).show();
+       //  Toast.makeText(getApplicationContext(), "select avec succes", Toast.LENGTH_SHORT).show();
 
 
         button2A.setOnClickListener(new View.OnClickListener(){
@@ -316,24 +318,24 @@ Button button1v ,button22,button3 ,button2A;
 
     private void ajoutReclamations() {
         try {
-            RequestQueue requestQueue = Volley.newRequestQueue(AjouterReclamation.this);
-            String URL = "http://10.0.2.2/reclam/reclamation.php?id="+id_c;
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONArray arr = new JSONArray(response);
-                        for(int i=0 ;i<arr.length();i++) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(AjouterReclamation.this);
+                        String URL = "http://10.0.2.2/reclam/reclamation.php?id="+id_c;
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONArray arr = new JSONArray(response);
+                                    for(int i=0 ;i<arr.length();i++) {
 //                            reclamation rec = new reclamation();
 //                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
 //                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
 //                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
 
 //                            recList.add(rec);
-                        }
+                                    }
 
 
-                    } catch (JSONException e) {
+                                } catch (JSONException e) {
                         e.printStackTrace();
                     }
 

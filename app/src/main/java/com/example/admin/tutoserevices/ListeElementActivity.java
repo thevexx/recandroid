@@ -1,20 +1,15 @@
 package com.example.admin.tutoserevices;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.ParseException;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -24,8 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -33,13 +26,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.example.admin.tutoserevices.Functions.GETLIST_URL;
 
 public class ListeElementActivity extends AppCompatActivity {
     private SessionManager session;
@@ -48,12 +38,13 @@ public class ListeElementActivity extends AppCompatActivity {
     private static final String TAG = ListeElementActivity.class.getSimpleName();
     private List<reclamation> recList = new ArrayList<reclamation>();
     // private ListView listView;
-    TextView libelle ,etat,image,titre ;
+    TextView libelle ,etat,image,titre;
+
     private ListView maListView;
     private ProgressDialog pDialog;
     private CustomListAdapter adapter;
     private String id_c;
-//    Bundle b = getIntent().getExtras();
+   
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +54,7 @@ public class ListeElementActivity extends AppCompatActivity {
         id_c = preferences.getString("idc", "");
         ListView maListView = (ListView) findViewById(R.id.Listeelement);
 
-
         getReclamations();
-        //Array du Strings
-      /*  String[] Jours = {"lundi", "Mardi", "Mercredi", "Jeudi", "Mardi", "Mardi", "Mercredi", "Jeudi", "Mardi", "Mardi", "Mercredi", "Jeudi", "Mardi", "Mardi"};
-
-        //Adapter qui utilise l'élement par default simple_liste_item1_1
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
-                android.R.id.text1,Jours);
-
-        //Affecter à la liste view l'adaptateur déja crée
-        maListView.setAdapter(adapter);*/
 
         //Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> list_des_pays = new ArrayList<HashMap<String, String>>();
@@ -83,17 +64,22 @@ public class ListeElementActivity extends AppCompatActivity {
 
 
 
+        String[] theme = {"Habitat", "Batiment civile", "Urbanisme", "Amenagement du territoire", "pont et route"};
+        String[] lieu = {"Tunis", "Bizerte", "Ariana", "Manaouba", "Gafsa", "Zaghouan", "Tataouin", "Mounastir", "Mahdia", "Sousse", "Kairoun", "Gabes", "Nabeul", "Sfax", "Touzeur", "Kef", "Jandouba", "Kebeli", "Beja", "Siliana"};
+        String[] libellee = {"reclamation 1", "rec2", "rec3"};
+        String[] etatt = {"Terminer", "en cours", "en attent"};
+        String[] commentaire = {""};
 
 
 
 
 
-    String[] libelle = {"reclamation 1", "rec2", "rec3"};
+
+        String[] libelle = {"reclamation 1", "rec2", "rec3"};
         String[] etat = {"Terminer", "en cours", "Terminer"};
         int[] icone = {R.drawable.iamgerec1, R.drawable.iamgerec1, R.drawable.iamgerec1};
 //On déclare la HashMap qui contiendra les informations pour un item
 //Création d'une HashMap pour insérer les informations du premier item de notre listView
-// HashMap<String, String> map = new HashMap<String, String>();
 //on insère un élément titre que l'on récupérera dans le textView titre créé dans le fichier affichageitem.xml
         for (int i = 0; i < libelle.length; i++) {
             HashMap<String, String> map = new HashMap<String, String>();
@@ -128,29 +114,48 @@ public class ListeElementActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     try {
-                        JSONArray arr = new JSONArray(response);
-                        for(int i=0 ;i<arr.length();i++) {
-//                            reclamation rec = new reclamation();
-//                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
-//                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
-//                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
+                        JSONArray jsonArray = new JSONArray();
 
-//                            recList.add(rec);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject reclamation = jsonArray.getJSONObject(i);
+
+//                            String libelle = reclamation.getString("libelle");
+//                            int icone = reclamation.getInt("icone");
+//                            String theme = reclamation.getString("theme");
+//                            String commentaire = reclamation.getString("commentaire");
+//                            String lieu = reclamation.getString("lieu");
+//                            String etat = reclamation.getString("etat");
+
+                           // mTextViewResult.append(firstName + ", " + String.valueOf(age) + ", " + mail + "\n\n");
                         }
-
+                        // JSONArray arr =  response.getJSONArray("");
+//                        Log.i("MY_LOG", response);
+//                        for(int i=0 ;i<arr.length();i++) {
+////                            reclamation rec = new reclamation();
+////                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
+////                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
+////                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
+//
+////                            recList.add(rec);
+//                        }
+//
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    Log.v("MY_LOG", "ok1");
                     Log.i("MY_LOG", response);
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("VOLLEY", error.toString());
                 }
+
+
             });
+
             requestQueue.add(stringRequest);
         } catch (Exception e) {
             Log.v("MY_LOG", "ok31");
@@ -165,21 +170,20 @@ public class ListeElementActivity extends AppCompatActivity {
 
 }
 
-    //@Override
+//@Override
 //   public void onStop() {
 
-    //      session = new SessionManager(getApplicationContext());
-    //   super.onStop();
-    //session.setLogin(false);
-    //}
+//      session = new SessionManager(getApplicationContext());
+//   super.onStop();
+//session.setLogin(false);
+//}
 
 
-    //public void onResume() {
-    //  super.onResume();
-    //  session = new SessionManager(getApplicationContext());
-    //if (!session.isLoggedIn()) {
-    //  Intent intentss = new Intent(ListeElementActivity.this,LoginActivity.class);
-    //startActivity(intentss);
-    //}
-    //}
-
+//public void onResume() {
+//  super.onResume();
+//  session = new SessionManager(getApplicationContext());
+//if (!session.isLoggedIn()) {
+//  Intent intentss = new Intent(ListeElementActivity.this,LoginActivity.class);
+//startActivity(intentss);
+//}
+//}

@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), inscription.class);
+                Intent i = new Intent(LoginActivity.this, inscription.class);
                 startActivity(i);
                 finish();
             }
