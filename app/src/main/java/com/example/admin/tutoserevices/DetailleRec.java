@@ -26,18 +26,36 @@ import java.util.List;
 public class DetailleRec extends AppCompatActivity  {
 
 private  Button fermer ;
+//String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detaille_rec);
+//        this.getIntent().getStringExtra("id");
+
+        Bundle extras = getIntent().getExtras();
+        String id;
+        String theme;
+        String libelle;
+        String etat;
+
+        if (extras != null) {
+            id = extras.getString("id");
+            libelle = extras.getString("libelle");
+            theme = extras.getString("theme");
+            etat = extras.getString("etat");
+            // and get whatever type user account id is
+            Log.v("LOG","_________________________"+id + "__"+ libelle + "__" + theme + "__"+ etat);
+        }
+
+
         fermer = (Button)findViewById(R.id.button4);
     fermer.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         finish();
-        Intent intent = new Intent(DetailleRec.this, MainActivity.class);
-        startActivity(intent);
+
     }
 });
     }

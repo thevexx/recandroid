@@ -32,19 +32,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ListeElementActivity extends AppCompatActivity {
-    private SessionManager session;
     // private static final String  url = "http://192.168.143.52/reclamamtionprojectdev/app/serviceslogin.php?op=getliste";
     // private static final String  url = "http://192.168.1.27/reclamamtionprojectdev/app/serviceslogin.php?op=getliste";
     private static final String TAG = ListeElementActivity.class.getSimpleName();
-    private List<reclamation> recList = new ArrayList<reclamation>();
     // private ListView listView;
-    TextView libelle ,etat,image,titre;
-
-    private ListView maListView;
+    TextView libelle, etat, image, titre;
+    private SessionManager session;
+    private List<reclamation> recList = new ArrayList<reclamation>();
     private ProgressDialog pDialog;
-    private CustomListAdapter adapter;
     private String id_c;
-   
+    private SimpleAdapter adapter;
+    private ListView maListView;
+    private ArrayList<HashMap<String, String>> list_des_pays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,118 +51,78 @@ public class ListeElementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liste_element);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         id_c = preferences.getString("idc", "");
-        ListView maListView = (ListView) findViewById(R.id.Listeelement);
+        maListView = (ListView) findViewById(R.id.Listeelement);
 
         getReclamations();
 
-        //Création de la ArrayList qui nous permettra de remplire la listView
-        ArrayList<HashMap<String, String>> list_des_pays = new ArrayList<HashMap<String, String>>();
+        list_des_pays = new ArrayList<HashMap<String, String>>();
 
-
-//optimisation du code
-
-
-
-        String[] theme = {"Habitat", "Batiment civile", "Urbanisme", "Amenagement du territoire", "pont et route"};
-        String[] lieu = {"Tunis", "Bizerte", "Ariana", "Manaouba", "Gafsa", "Zaghouan", "Tataouin", "Mounastir", "Mahdia", "Sousse", "Kairoun", "Gabes", "Nabeul", "Sfax", "Touzeur", "Kef", "Jandouba", "Kebeli", "Beja", "Siliana"};
-        String[] libellee = {"reclamation 1", "rec2", "rec3"};
-        String[] etatt = {"Terminer", "en cours", "en attent"};
-        String[] commentaire = {""};
-
-
-
-
-
-
-        String[] libelle = {"reclamation 1", "rec2", "rec3"};
-        String[] etat = {"Terminer", "en cours", "Terminer"};
         int[] icone = {R.drawable.iamgerec1, R.drawable.iamgerec1, R.drawable.iamgerec1};
 //On déclare la HashMap qui contiendra les informations pour un item
 //Création d'une HashMap pour insérer les informations du premier item de notre listView
 //on insère un élément titre que l'on récupérera dans le textView titre créé dans le fichier affichageitem.xml
-        for (int i = 0; i < libelle.length; i++) {
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("libelle", libelle[i]);
-            map.put("etat", etat[i]);
-            map.put("icone", String.valueOf(icone));
-            list_des_pays.add(map);
-        }
-
-
         maListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 
             {
+
                 Intent intent = new Intent(ListeElementActivity.this, DetailleRec.class);
+                intent.putExtra("id",list_des_pays.get(position).get("id"));
+                intent.putExtra("libelle",list_des_pays.get(position).get("libelle"));
+                intent.putExtra("theme",list_des_pays.get(position).get("theme"));
+                intent.putExtra("etat",list_des_pays.get(position).get("etat"));
                 startActivity(intent);
-                Toast.makeText(ListeElementActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(ListeElementActivity.this, "" + list_des_pays.get(position).get("id"), Toast.LENGTH_SHORT).show();
             }
         });
-
 //Création d'un SimpleAdapter qui se chargera de mettre les items présent dans notre list (list_des_pays dans la vue affichageitem
-        SimpleAdapter adapter = new SimpleAdapter(this.getBaseContext(), list_des_pays, R.layout.libelle,
+        adapter = new SimpleAdapter(this.getBaseContext(), list_des_pays, R.layout.libelle,
                 new String[]{"libelle", "etat", "icone",}, new int[]{R.id.libelle, R.id.Etat, R.id.icone});
         maListView.setAdapter(adapter);
     }
+
     private void getReclamations() {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(ListeElementActivity.this);
-            String URL = "http://10.0.2.2/reclam/reclamation.php?id="+id_c;
+            String URL = "http://10.0.2.2/reclam/reclamation.php?id=09958664"; // + id_c;
             StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try {
-                        JSONArray jsonArray = new JSONArray();
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                            HashMap<String, String> map = new HashMap<String, String>();
                             JSONObject reclamation = jsonArray.getJSONObject(i);
-
-//                            String libelle = reclamation.getString("libelle");
-//                            int icone = reclamation.getInt("icone");
-//                            String theme = reclamation.getString("theme");
-//                            String commentaire = reclamation.getString("commentaire");
-//                            String lieu = reclamation.getString("lieu");
-//                            String etat = reclamation.getString("etat");
-
-                           // mTextViewResult.append(firstName + ", " + String.valueOf(age) + ", " + mail + "\n\n");
-                        }
-                        // JSONArray arr =  response.getJSONArray("");
-//                        Log.i("MY_LOG", response);
-//                        for(int i=0 ;i<arr.length();i++) {
-////                            reclamation rec = new reclamation();
-////                            rec.setLibelle_r(arr.getString(Integer.parseInt("libelle")));
-////                            rec.setEtat_r(arr.getString(Integer.parseInt("etat")));
-////                            rec.setImage_r(arr.getString(Integer.parseInt("icone")));
-//
-////                            recList.add(rec);
-//                        }
-//
-
+                            map.put("libelle", reclamation.getString("libelle_r"));
+                            map.put("id", reclamation.getString("id_r"));
+                        map.put("etat", reclamation.getString("etat_r"));
+                        map.put("theme", reclamation.getString("theme_r"));
+                            map.put("icone", reclamation.getString("image_r"));
+                            list_des_pays.add(map);
+                    }
                     } catch (JSONException e) {
+
                         e.printStackTrace();
                     }
-                    Log.v("MY_LOG", "ok1");
-                    Log.i("MY_LOG", response);
-
+                    adapter = new SimpleAdapter(ListeElementActivity.this, list_des_pays, R.layout.libelle,
+                            new String[]{"libelle", "etat", "icone",}, new int[]{R.id.libelle, R.id.Etat, R.id.icone});
+                    maListView.setAdapter(adapter);
+                    maListView.invalidateViews();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("VOLLEY", error.toString());
                 }
-
-
             });
-
             requestQueue.add(stringRequest);
         } catch (Exception e) {
             Log.v("MY_LOG", "ok31");
 
             e.printStackTrace();
             Log.v("MY_LOG", "ok3");
-
-        } finally {
 
         }
     }
